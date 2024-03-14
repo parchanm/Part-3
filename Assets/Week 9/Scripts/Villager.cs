@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 public class Villager : MonoBehaviour
 {
-    Rigidbody2D rb;
+    protected Rigidbody2D rb;
     Animator animator;
 
     bool clickingOnSelf;
@@ -63,7 +63,7 @@ public class Villager : MonoBehaviour
         rb.MovePosition(rb.position + movement.normalized * speed * Time.deltaTime);
     }
 
-    void Update()
+    protected virtual void Update()
     {
         //left click: move to the click location
         if (Input.GetMouseButtonDown(0) && isSelected && !clickingOnSelf)
