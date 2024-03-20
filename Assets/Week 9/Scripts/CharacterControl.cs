@@ -2,11 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
+using TMPro; //don't forget TMPro here
 
 public class CharacterControl : MonoBehaviour
 {
-    public TMP_Text textThis;
+    public TextMeshProUGUI currentSelection;
+    public static CharacterControl Instance; //
     public static Villager SelectedVillager { get; private set; }
     public static void SetSelectedVillager(Villager villager)
     {
@@ -16,14 +17,20 @@ public class CharacterControl : MonoBehaviour
         }
         SelectedVillager = villager;
         SelectedVillager.Selected(true);
+        Instance.currentSelection.text = villager.ToString();
+        //Instance.currentSelection.text = villager.GetType().ToString(); // if I do villager.ToString, it'll say
+        //Archer(Archer) or Bob(Archer) but if I do this instead, just Archer
     }
-    
-    void Update()
+    private void Start()
     {
-        if(SelectedVillager == null)
-        {
-            textThis.text = "no villager selected";
-        }
-        textThis.text = SelectedVillager.ToString();
+        Instance = this;
+    }
+
+    private void Update()
+    {
+        //if(SelectedVillager != null)
+        //{
+        //    currentSelection.text = SelectedVillager.GetType().ToString();
+        //}
     }
 }
