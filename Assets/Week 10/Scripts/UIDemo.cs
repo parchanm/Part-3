@@ -24,5 +24,6 @@ public class UIDemo : MonoBehaviour
     public void DropdownHasChanged(int index)
     {
         Debug.Log(dropdown.options[index].text);
+        Debug.Log(index);
     }
 }

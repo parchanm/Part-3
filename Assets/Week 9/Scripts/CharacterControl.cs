@@ -9,6 +9,11 @@ public class CharacterControl : MonoBehaviour
     public TextMeshProUGUI currentSelection;
     public static CharacterControl Instance; //
     public static Villager SelectedVillager { get; private set; }
+    public TMP_Dropdown dropdown;
+    public Villager archer;
+    public Villager thief;
+    public Villager merchant;
+
     public static void SetSelectedVillager(Villager villager)
     {
         if(SelectedVillager != null)
@@ -24,6 +29,25 @@ public class CharacterControl : MonoBehaviour
     private void Start()
     {
         Instance = this;
+    }
+    public void dropDownMenu(int index)
+    {
+        Debug.Log(index);
+        if (index == 0)
+        {
+            SetSelectedVillager(merchant);
+            Debug.Log(index);
+        }
+        if (index == 1)
+        {
+            SetSelectedVillager(archer);
+            Debug.Log(index);
+        }
+        if (index == 2)
+        {
+            SetSelectedVillager(thief);
+            Debug.Log(index);
+        }
     }
 
     private void Update()
