@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro; //don't forget TMPro here
+using UnityEngine.UI; //took long enough to remember this one too
 
 public class CharacterControl : MonoBehaviour
 {
@@ -13,6 +14,11 @@ public class CharacterControl : MonoBehaviour
     public Villager archer;
     public Villager thief;
     public Villager merchant;
+    public Slider slider;
+    public Transform tfMerchant;
+    public Transform tfArcher;
+    public Transform tfThief;
+    public int bagOfIndex;
 
     public static void SetSelectedVillager(Villager villager)
     {
@@ -36,17 +42,36 @@ public class CharacterControl : MonoBehaviour
         if (index == 0)
         {
             SetSelectedVillager(merchant);
+            bagOfIndex = 0;
             Debug.Log(index);
         }
         if (index == 1)
         {
             SetSelectedVillager(archer);
+            bagOfIndex = 1;
             Debug.Log(index);
         }
         if (index == 2)
         {
             SetSelectedVillager(thief);
+            bagOfIndex = 2;
             Debug.Log(index);
+        }
+    }
+
+    public void villagerSizeSlider(Single scale)
+    {
+        if (bagOfIndex ==0)
+        {
+            tfMerchant.transform.localScale = new Vector3(scale, scale, 0);
+        }
+        if (bagOfIndex == 1)
+        {
+            tfArcher.transform.localScale = new Vector3(scale, scale, 0);
+        }
+        if (bagOfIndex == 2)
+        {
+            tfThief.transform.localScale = new Vector3(scale, scale, 0);
         }
     }
 
