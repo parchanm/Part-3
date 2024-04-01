@@ -8,6 +8,7 @@ TagManager:
   - Wall
   - Block
   - HardWall
+  - Bullet
   layers:
   - Default
   - TransparentFX

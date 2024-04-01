@@ -52,12 +52,12 @@ public class Bullet : MonoBehaviour
         }
         else if (other.CompareTag("Tank"))
         {
-            Tank tank = other.gameObject.GetComponent<Tank>();
-            if (tank != null)
-            {
-                tank.TookDamage(1); //bullet damage 1
-                //Debug.Log("Tank took damage");
-            }
+            //Tank tank = other.gameObject.GetComponent<Tank>();
+            //if (tank != null)
+            //{
+            //    tank.TookDamage(1); //bullet damage 1
+            //    //Debug.Log("Tank took damage");
+            //}
             Destroy(gameObject);
         }
     }

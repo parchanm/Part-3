@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : Tank
 {
-    public int lives;
+    //public int lives;
     public float moveSpeed = 20;
     //public float moveDistance = 1f;
     //public bool isMoving = false;
@@ -14,12 +14,16 @@ public class Player : Tank
     private bool canFire = true;
     //private bool canMove = true;
     private bool isRotating = false;
+    //public SpriteRenderer sr;
 
     private void Start()
     {
         hp = 3;
         rb = GetComponent<Rigidbody2D>();
         StartCoroutine(InputControl());
+
+        //sr = GetComponent<SpriteRenderer>();
+        //startColor = sr.color;
     }
 
     private IEnumerator InputControl()
