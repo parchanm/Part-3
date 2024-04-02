@@ -27,8 +27,9 @@ public class Enemy : Tank
 
     protected override void Die()
     {
+        Tank.Score(1);//update score when this tank is dead
         base.Die();
-        Tank.Score(1); //update score when this tank is dead
+        //Tank.score += 1;
     }
 
     private IEnumerator EnemyAction()

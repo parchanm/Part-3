@@ -1,26 +1,45 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro; //added for textmeshpro
 
 public class Tank : MonoBehaviour
 {
-    protected static int score;
+    public static int score;
+    //protected static bool isGameOver = false;
     protected int hp;
     public GameObject bulletPrefab;
     public SpriteRenderer sr;
     public float offset = 0.7f; //adjusting y value to avoid bullet collision during instantiating
+
     //more note: figured setting spawnPoint for tank's bullet using public transform wouldn't work because all tanks share same base.Fire();
+    
     //protected Color startColor;
+    public bool playerDed = false;
+    public int storedScore;
+
+    public TextMeshProUGUI endGameText;
+    //public TextMeshProUGUI loseText;
+    //protected TextMeshProUGUI gameEndText;
 
     private void Start()
     {
         sr = GetComponent<SpriteRenderer>();
         //startColor = sr.color;
         score = 0;
+        //isGameOver = false;
+        playerDed = false;
+        Debug.Log("score is:" + score);
+    }
+
+    private void Update()
+    {
+        WinLoseText();
     }
     public virtual void Fire() //call bullet function and instantiate the prefab when called
     {
         //ran into an issue where bullet hits its spawner's collider when instantiated
+
         Vector3 spawnPos = transform.position + transform.up * offset; //used this line of code to work with y coordinate values
         //GameObject bulletObject = Instantiate(bulletPrefab, transform.position, transform.rotation);
         GameObject bulletObject = Instantiate(bulletPrefab, spawnPos, transform.rotation);
@@ -29,7 +48,7 @@ public class Tank : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other) //compare tags with ontriggerenter2d to detect tank, border, bullet
     {
-        if (other.CompareTag("Bullet"))
+        if (other.CompareTag("Bullet")) //tank 1 hp away when hit by a bullet and die when hp is 1 or less
         {
             if (hp <= 1)
             {
@@ -38,14 +57,14 @@ public class Tank : MonoBehaviour
             TookDamage(1);
             Debug.Log(hp);
         }
-        else if (other.CompareTag("Tank"))
+        else if (other.CompareTag("Tank")) //die when colliding with tank
         {
             if (hp <= 4)
             {
                 Die();
             }
         }
-        else if (other.CompareTag("HardWall"))
+        else if (other.CompareTag("HardWall")) //die when colliding with hardwall
         {
             Die();
         }
@@ -70,7 +89,7 @@ public class Tank : MonoBehaviour
         //sr.color = startColor;
     }
 
-    private IEnumerator Dying() //make tank transparent when dying and destroy object
+    private IEnumerator Dying() //make tank slowly transparent when dying and destroy object
     {
         float fadeTime = 1;
         float timer = 0;
@@ -86,7 +105,20 @@ public class Tank : MonoBehaviour
 
     public static void Score(int points) //count scores
     {
-        score =+ points;
+        score += points;
         Debug.Log("score is " + score);
+        //WinLoseText();
+    }
+
+    public void WinLoseText() //when score reaches 5, show win text
+    {
+        if (endGameText != null)
+        {
+            if (score >= 5)
+            {
+                //Debug.Log("you won");
+                endGameText.text = "you won";
+            }
+        }
     }
 }

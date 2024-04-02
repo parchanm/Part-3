@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Player : Tank
 {
@@ -15,6 +16,7 @@ public class Player : Tank
     //private bool canMove = true;
     private bool isRotating = false;
     //public SpriteRenderer sr;
+    //public TextMeshProUGUI loseText;
 
     private void Start()
     {
@@ -24,6 +26,10 @@ public class Player : Tank
 
         //sr = GetComponent<SpriteRenderer>();
         //startColor = sr.color;
+    }
+    private void Update()
+    {
+        YouLost();
     }
 
     private IEnumerator InputControl()
@@ -70,16 +76,26 @@ public class Player : Tank
         //isFiring = false;
     }
 
-    public override void Fire()
+    public override void Fire() //call fire from tank parent class
     {
         base.Fire();
-        //color sr change white
+
     }
 
-    protected override void Die()
+    protected override void Die() //call die function and turn player dead check bool on
     {
         base.Die();
-        //game over text or UI
-        //
+        playerDed = true;
+    }
+
+    public void YouLost() //check if player's dead and show game over text when player's dead
+    {
+        if (endGameText != null)
+        {
+            if (playerDed == true)
+            {
+                endGameText.text = "Game Over";
+            }
+        }
     }
 }
